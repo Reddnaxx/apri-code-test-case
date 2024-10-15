@@ -13,9 +13,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "declaration": true,
-    "composite": true,
-    "emitDeclarationOnly": true,
+    "declaration": false,
     "paths": {
       "@app/lib": ["modules/lib/src/index.ts"],
       "@app/tasks": ["modules/tasks/src/index.ts"],

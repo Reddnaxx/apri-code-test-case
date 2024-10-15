@@ -8,6 +8,7 @@ import svgr from 'vite-plugin-svgr';
 export default defineConfig({
   root: __dirname,
   cacheDir: './node_modules/.vite/app',
+  base: "/apri-code-test-case/",
   server: {
     port: 4200,
     host: 'localhost',

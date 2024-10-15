@@ -1,5 +1,4 @@
-import { TaskList } from '@app/tasks';
-import { ITask } from 'modules/tasks/src/interfaces/task.interface';
+import { ITask, TaskList } from '@app/tasks';
 
 const tasks: ITask[] = [
   {
