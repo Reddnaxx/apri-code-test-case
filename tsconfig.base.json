@@ -18,6 +18,7 @@
     "emitDeclarationOnly": true,
     "paths": {
       "@app/lib": ["modules/lib/src/index.ts"],
+      "@app/tasks": ["modules/tasks/src/index.ts"],
       "@app/ui": ["modules/ui/src/index.ts"]
     }
   },

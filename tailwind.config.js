@@ -18,6 +18,19 @@ module.exports = {
       colors: {
         primary: '#4788F6',
       },
+      keyframes: {
+        'expand-menu': {
+          '0%': {
+            maxHeight: 0,
+          },
+          '100%': {
+            maxHeight: '100dvh',
+          },
+        },
+      },
+      animation: {
+        'expand-menu': 'expand-menu 1.5s ease forwards',
+      },
     },
   },
   plugins: [],
