@@ -12,9 +12,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        check: 'url("/svg/check.svg")',
-      },
       colors: {
         primary: '#4788F6',
       },

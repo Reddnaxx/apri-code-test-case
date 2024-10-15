@@ -1,4 +1,4 @@
-import { Checkbox, IconButton } from '@app/ui';
+import { ArrowSvg, Checkbox, IconButton, VertMenuSvg } from '@app/ui';
 import { ITask } from '../../interfaces/task.interface';
 import { useState } from 'react';
 import { cn } from '@app/lib';
@@ -17,9 +17,7 @@ export function TaskItem({ title, completed, children }: TaskItemProps) {
             onClick={() => setIsExpanded(!isExpanded)}
             className="absolute"
           >
-            <img
-              src="/svg/arrow.svg"
-              alt="expand"
+            <ArrowSvg
               width={16}
               height={16}
               className={cn(`transition-transform`, {
@@ -35,12 +33,7 @@ export function TaskItem({ title, completed, children }: TaskItemProps) {
           onChange={e => setChecked(e.currentTarget.checked)}
         />
         <IconButton>
-          <img
-            src="/svg/vert-menu.svg"
-            alt="open menu"
-            width={24}
-            height={24}
-          />
+          <VertMenuSvg width={24} height={24} />
         </IconButton>
       </div>
       {children && children.length > 0 && isExpanded && (
