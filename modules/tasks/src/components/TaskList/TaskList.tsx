@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import type { ITask } from '../../interfaces/task.interface';
 import TaskItem from '../TaskItem/TaskItem';
 
@@ -5,7 +6,7 @@ type TaskListProps = {
   tasks: ITask[];
 };
 
-export function TaskList({ tasks }: TaskListProps) {
+export const TaskList = observer(({ tasks }: TaskListProps) => {
   return (
     <ul>
       {tasks.map(task => (
@@ -13,6 +14,8 @@ export function TaskList({ tasks }: TaskListProps) {
       ))}
     </ul>
   );
-}
+});
+
+TaskList.displayName = 'TaskList';
 
 export default TaskList;

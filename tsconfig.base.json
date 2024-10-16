@@ -5,7 +5,7 @@
     "sourceMap": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "experimentalDecorators": true, 
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
@@ -13,11 +13,13 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "declaration": false,
+    "declaration": true,
+    "declarationMap": true,
     "paths": {
-      "@app/lib": ["modules/lib/src/index.ts"],
+      "@app/store": ["modules/store/src/index.ts"],
       "@app/tasks": ["modules/tasks/src/index.ts"],
-      "@app/ui": ["modules/ui/src/index.ts"]
+      "@app/ui": ["modules/ui/src/index.ts"],
+      "@app/utils": ["modules/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
