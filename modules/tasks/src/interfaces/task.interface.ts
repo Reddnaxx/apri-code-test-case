@@ -3,5 +3,5 @@ export interface ITask {
   title: string;
   text: string;
   completed: boolean;
-  children?: ITask[];
+  children?: string[];
 }

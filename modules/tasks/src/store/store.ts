@@ -1,44 +1,73 @@
-import { makeAutoObservable } from 'mobx';
+import { autorun, makeAutoObservable } from 'mobx';
 import { ITask } from '../interfaces/task.interface';
 
 class TasksStore {
-  private _tasks: ITask[] = [];
+  private _tasks: ITask[];
 
   public get tasks(): ITask[] {
     return this._tasks;
   }
 
+  public get parentTasks(): ITask[] {
+    return this._tasks.filter(
+      task => !this._tasks.some(t => t.children?.includes(task.id))
+    );
+  }
+
   constructor() {
+    const localTasks = localStorage.getItem('tasks');
+    this._tasks = localTasks ? JSON.parse(localTasks) : [];
+
     makeAutoObservable(this);
   }
 
   public addTask(task: ITask, parentId?: string): void {
+    this._tasks = [...this._tasks, task];
+
     if (parentId) {
       const parent = this._tasks.find(t => t.id === parentId);
       if (parent) {
         parent.children ??= [];
-        parent.children = [...parent.children, task];
+        parent.children = [...parent.children, task.id];
       }
       return;
     }
-    this._tasks = [...this._tasks, task];
   }
 
-  public removeTask(id: string): void {
-    const removeTaskRecursive = (tasks: ITask[]): ITask[] => {
-      return tasks.filter(task => {
-        if (task.id === id) {
-          return false;
-        }
-        if (task.children) {
-          task.children = removeTaskRecursive(task.children);
-        }
-        return true;
-      });
-    };
+  public updateTask(id: string, updatedFields: Partial<ITask>): void {
+    const task = this.findTaskById(id);
+    if (task) {
+      Object.assign(task, updatedFields);
+    }
+  }
 
-    this._tasks = removeTaskRecursive(this._tasks);
+  public findTaskById(id: string): ITask | undefined {
+    return this._tasks.find(task => task.id === id);
+  }
+
+  public findTaskChildren(id: string): ITask[] {
+    const task = this.findTaskById(id);
+    if (!task) return [];
+
+    const result: ITask[] = [];
+    const children = task.children ?? [];
+    for (const child of children) {
+      const childTask = this._tasks.find(t => t.id === child);
+      if (childTask) {
+        result.push(childTask);
+      }
+    }
+
+    return result;
+  }
+
+  public toJson(): string {
+    return JSON.stringify(this._tasks);
   }
 }
 
 export const tasksStore = new TasksStore();
+
+autorun(() => {
+  localStorage.setItem('tasks', tasksStore.toJson());
+});
