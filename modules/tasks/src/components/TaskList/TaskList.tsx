@@ -4,14 +4,17 @@ import TaskItem from '../TaskItem/TaskItem';
 
 type TaskListProps = {
   tasks: ITask[];
+  className?: string;
 };
 
-export const TaskList = observer(({ tasks }: TaskListProps) => {
+export const TaskList = observer(({ tasks, className }: TaskListProps) => {
   return (
-    <ul>
-      {tasks.map(task => (
-        <TaskItem key={task.id} {...task} />
-      ))}
+    <ul className={className}>
+      {tasks.length > 0 ? (
+        tasks.map(task => <TaskItem key={task.id} {...task} />)
+      ) : (
+        <div className="text-center text-xl">Задачи не найдены</div>
+      )}
     </ul>
   );
 });

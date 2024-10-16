@@ -9,7 +9,6 @@
       "vite/client"
     ],
     "emitDecoratorMetadata": true,
-    "composite": true,
     "declaration": true,
     "declarationMap": true
   },
