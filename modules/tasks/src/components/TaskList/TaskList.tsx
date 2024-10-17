@@ -1,13 +1,15 @@
 import { observer } from 'mobx-react-lite';
-import type { ITask } from '../../interfaces/task.interface';
+import { useTaskStore } from '../../contexts/taskStoreContext';
 import TaskItem from '../TaskItem/TaskItem';
 
 type TaskListProps = {
-  tasks: ITask[];
   className?: string;
 };
 
-export const TaskList = observer(({ tasks, className }: TaskListProps) => {
+export const TaskList = observer(({ className }: TaskListProps) => {
+  const store = useTaskStore();
+  const tasks = store.parentTasks;
+
   return (
     <ul className={className}>
       {tasks.length > 0 ? (

@@ -6,7 +6,6 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "emitDecoratorMetadata": true,
-    "composite": true,
     "declaration": true,
     "declarationMap": true
   },

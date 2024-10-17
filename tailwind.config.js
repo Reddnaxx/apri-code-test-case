@@ -14,6 +14,7 @@ module.exports = {
     extend: {
       colors: {
         primary: '#4788F6',
+        warn: '#F64747',
       },
       keyframes: {
         'expand-menu': {

@@ -7,5 +7,8 @@ export { default as EditSvg } from './assets/svg/edit.svg?react';
 export { default as VertMenuSvg } from './assets/svg/vert-menu.svg?react';
 export * from './components/Checkbox/Checkbox';
 export * from './components/IconButton/IconButton';
+export * from './components/Input/Input';
 export * from './components/Menu/components/MenuButton/MenuButton';
 export * from './components/Menu/Menu';
+export * from './components/Modal/Modal';
+export * from './contexts/modalContext';
