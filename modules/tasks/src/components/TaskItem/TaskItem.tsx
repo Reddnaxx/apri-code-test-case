@@ -1,10 +1,12 @@
 import { ArrowSvg, Checkbox, IconButton, VertMenuSvg } from '@app/ui';
 import { cn } from '@app/utils';
 import { observer } from 'mobx-react-lite';
-import { ChangeEvent, MouseEvent, useState } from 'react';
+import { ChangeEvent, MouseEvent, useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ITask } from '../../interfaces/task.interface';
 import { tasksStore } from '../../store/store';
+import { TaskMenu } from '../TaskMenu/TaskMenu';
+import { TaskItemChildren } from './components/TaskItemChildren/TaskItemChildren';
 
 type TaskItemProps = Pick<ITask, 'id' | 'title'> & {
   className?: string;
@@ -15,7 +17,10 @@ export const TaskItem = observer(({ id, title, className }: TaskItemProps) => {
   const children = store.findTaskChildren(id);
   const completed = store.findTaskById(id)?.completed ?? false;
 
+  const hasChildren = useMemo(() => children?.length > 0, [children]);
+
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const updateParent = () => {
     const parent = store.tasks.find(task => task.children?.includes(id));
@@ -45,8 +50,8 @@ export const TaskItem = observer(({ id, title, className }: TaskItemProps) => {
     e.preventDefault();
   };
 
-  const handleMenuOpen = (e: MouseEvent<HTMLButtonElement>) => {
-    console.log('menu open');
+  const handleMenuOpen = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   return (
@@ -60,12 +65,12 @@ export const TaskItem = observer(({ id, title, className }: TaskItemProps) => {
             })
           }
         >
-          {children && children.length > 0 && (
+          {hasChildren && (
             <button onClick={handleExpand} className="absolute left-2">
               <ArrowSvg
                 width={16}
                 height={16}
-                className={cn(`transition-transform`, {
+                className={cn('transition-transform', {
                   'rotate-90': !isExpanded,
                 })}
               />
@@ -81,22 +86,17 @@ export const TaskItem = observer(({ id, title, className }: TaskItemProps) => {
         <IconButton onClick={handleMenuOpen} className="absolute right-2">
           <VertMenuSvg width={24} height={24} />
         </IconButton>
+        <TaskMenu
+          className="absolute right-2 top-full z-20"
+          taskId={id}
+          setIsMenuOpen={setIsMenuOpen}
+          visible={isMenuOpen}
+        />
       </div>
-      {children && children.length > 0 && isExpanded && (
-        <div
-          className={cn(
-            'w-full pl-2 animate-expand-menu overflow-hidden transition-all'
-          )}
-        >
-          {children.map(child => (
-            <TaskItem
-              key={child.id}
-              className="text-sm font-normal"
-              {...child}
-            />
-          ))}
-        </div>
-      )}
+      <TaskItemChildren
+        children={children}
+        visible={isExpanded && hasChildren}
+      />
     </div>
   );
 });

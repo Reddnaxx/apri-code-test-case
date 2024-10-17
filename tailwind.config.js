@@ -22,6 +22,7 @@ module.exports = {
           },
           '100%': {
             maxHeight: '100dvh',
+            overflow: 'visible',
           },
         },
       },
