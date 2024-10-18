@@ -1,6 +1,6 @@
 import { createContext, FC, PropsWithChildren, useContext } from 'react';
 
-import { TasksStore, tasksStore } from '../store/store';
+import { TasksStore, tasksStore } from '../store/tasks-store';
 
 const TaskContext = createContext<TasksStore | null>(null);
 

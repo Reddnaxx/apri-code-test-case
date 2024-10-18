@@ -22,7 +22,7 @@ export const TaskMenu = observer(
 
     const handleNewTask = () => {
       setIsMenuOpen(false);
-      openModal(<NewTaskModal taskId={taskId} />);
+      openModal(<NewTaskModal parentId={taskId} />);
     };
 
     const handleRemoveTask = () => {

@@ -4,10 +4,10 @@ import { FormEvent, useRef, useState } from 'react';
 import { useTaskStore } from '../../contexts/taskStoreContext';
 
 type NewTaskModalProps = {
-  taskId?: string;
+  parentId?: string;
 };
 
-export const NewTaskModal = observer(({ taskId }: NewTaskModalProps) => {
+export const NewTaskModal = observer(({ parentId }: NewTaskModalProps) => {
   const { addTask } = useTaskStore();
   const { closeModal } = useModalContext();
   const [isFormValid, setIsFormValid] = useState(false);
@@ -18,7 +18,7 @@ export const NewTaskModal = observer(({ taskId }: NewTaskModalProps) => {
     const formData = new FormData(e.target as HTMLFormElement);
     const title = formData.get('title') as string;
     const text = formData.get('text') as string;
-    addTask({ title, text, completed: false }, taskId);
+    addTask({ title, text, completed: false }, parentId);
     closeModal();
   };
 
@@ -35,7 +35,9 @@ export const NewTaskModal = observer(({ taskId }: NewTaskModalProps) => {
       onChange={handleChange}
       className="flex flex-col gap-4"
     >
-      <h2 className="text-2xl font-medium">Создание подзадачи</h2>
+      <h2 className="text-2xl font-medium">
+        {parentId ? 'Создание подзадачи' : 'Создание задачи'}
+      </h2>
       <Input
         name="title"
         placeholder="Название"

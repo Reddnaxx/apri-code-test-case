@@ -1,3 +1,4 @@
+import { createHash } from '@app/utils';
 import { autorun, makeAutoObservable } from 'mobx';
 import { ITask } from '../interfaces/task.interface';
 
@@ -22,11 +23,11 @@ export class TasksStore {
   }
 
   public addTask = (task: Omit<ITask, 'id'>, parentId?: string): void => {
-    const id = Date.now().toString();
+    const id = createHash({ ...task, id: Date.now().toString() });
 
     const oldTasks = this._tasks;
 
-    this._tasks = [...oldTasks, { ...task, id: Date.now().toString() }];
+    this._tasks = [...oldTasks, { ...task, id }];
 
     if (parentId) {
       const parent = this._tasks.find(t => t.id === parentId);
@@ -82,9 +83,9 @@ export class TasksStore {
     if (!task) return [];
 
     const result: ITask[] = [];
-    const children = task.children ?? [];
-    for (const child of children) {
-      const childTask = this._tasks.find(t => t.id === child);
+    const childrenIds = task.children ?? [];
+    for (const childId of childrenIds) {
+      const childTask = this._tasks.find(t => t.id === childId);
       if (childTask) {
         result.push(childTask);
       }
