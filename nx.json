@@ -67,5 +67,6 @@
         "unitTestRunner": "vitest"
       }
     }
-  }
+  },
+  "neverConnectToCloud": true
 }
