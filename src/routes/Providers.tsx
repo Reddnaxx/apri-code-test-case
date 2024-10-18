@@ -1,5 +1,5 @@
 import { TaskStoreProvider } from '@app/tasks';
-import { ModalProvider } from '@app/ui';
+import { ModalProvider, ThemeProvider } from '@app/ui';
 import { observer } from 'mobx-react-lite';
 import { ReactNode } from 'react';
 
@@ -9,9 +9,11 @@ interface ProvidersProps {
 
 const Providers = observer(({ children }: ProvidersProps) => {
   return (
-    <ModalProvider>
-      <TaskStoreProvider>{children}</TaskStoreProvider>
-    </ModalProvider>
+    <ThemeProvider>
+      <ModalProvider>
+        <TaskStoreProvider>{children}</TaskStoreProvider>
+      </ModalProvider>
+    </ThemeProvider>
   );
 });
 

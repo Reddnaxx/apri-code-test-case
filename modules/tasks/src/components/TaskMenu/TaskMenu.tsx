@@ -42,15 +42,15 @@ export const TaskMenu = observer(
         className={className}
       >
         <MenuButton onClick={handleEditTask}>
-          <EditSvg width={24} height={24} />
+          <EditSvg width={24} height={24} className="dark:fill-white" />
           Редактировать
         </MenuButton>
         <MenuButton onClick={handleNewTask}>
-          <AddSvg width={24} height={24} />
+          <AddSvg width={24} height={24} className="dark:stroke-white" />
           Добавить подзадачу
         </MenuButton>
         <MenuButton onClick={handleRemoveTask}>
-          <DeleteSvg width={24} height={24} />
+          <DeleteSvg width={24} height={24} className="dark:stroke-white" />
           Удалить
         </MenuButton>
       </Menu>

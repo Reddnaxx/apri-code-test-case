@@ -1,4 +1,4 @@
-import { Input } from '@app/ui';
+import { Input, SearchSvg } from '@app/ui';
 import { cn } from '@app/utils';
 import { ChangeEvent } from 'react';
 import { useTaskStore } from '../../contexts/taskStoreContext';
@@ -32,8 +32,13 @@ export function TaskSearch({
   };
 
   return (
-    <div className={cn('flex', className)}>
-      <Input placeholder="Поиск" className="w-full" onChange={handleChange} />
+    <div className={cn('flex relative', className)}>
+      <Input
+        icon={<SearchSvg width={24} height={24} className="stroke-gray-300" />}
+        placeholder="Поиск"
+        className="pr-[calc(24px + 1rem)] w-full"
+        onChange={handleChange}
+      />
     </div>
   );
 }

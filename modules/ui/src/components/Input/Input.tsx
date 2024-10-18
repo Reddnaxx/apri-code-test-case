@@ -1,16 +1,18 @@
 import { cn } from '@app/utils';
 import { observer } from 'mobx-react-lite';
-import { InputHTMLAttributes, forwardRef } from 'react';
+import { InputHTMLAttributes, ReactNode, forwardRef } from 'react';
 
-type InputProps = InputHTMLAttributes<HTMLInputElement>;
+type InputProps = InputHTMLAttributes<HTMLInputElement> & {
+  icon?: ReactNode;
+};
 
 export const Input = observer(
   forwardRef<HTMLInputElement, InputProps>(
-    ({ className, placeholder, required, ...props }, ref) => {
+    ({ className, placeholder, required, icon, ...props }, ref) => {
       return (
         <div
           className={cn(
-            'hover:border-primary relative size-fit rounded-md border border-gray-300 p-2 transition-colors',
+            'hover:border-primary relative size-fit rounded-md border border-gray-300 p-2 transition-colors dark:bg-white dark:text-dark flex items-center gap-1',
             className
           )}
         >
@@ -19,7 +21,7 @@ export const Input = observer(
             placeholder={placeholder}
             required={required}
             className={
-              'peer w-full text-base outline-none transition-transform placeholder:opacity-0 focus:translate-y-2 [&:not(:placeholder-shown)]:translate-y-2'
+              'peer w-full bg-transparent text-base outline-none transition-transform placeholder:opacity-0 focus:translate-y-2 [&:not(:placeholder-shown)]:translate-y-2'
             }
             {...props}
           />
@@ -27,6 +29,7 @@ export const Input = observer(
             {placeholder}
             {required && <span className="text-red-500">*</span>}
           </span>
+          {icon}
         </div>
       );
     }

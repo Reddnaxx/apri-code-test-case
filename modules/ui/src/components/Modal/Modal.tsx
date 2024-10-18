@@ -39,7 +39,7 @@ export const Modal = observer(() => {
         className="fixed inset-0 flex bg-black/50"
         onClick={handleOutsideClick}
       />
-      <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-8">
+      <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-8 shadow-md dark:bg-zinc-800">
         {content}
       </div>
     </Portal>

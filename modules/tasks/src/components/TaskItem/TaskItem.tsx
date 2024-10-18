@@ -69,7 +69,7 @@ export const TaskItem = observer(({ id, title, className }: TaskItemProps) => {
           to={`${id}`}
           className={({ isActive }) =>
             cn('absolute inset-0 flex items-center', className, {
-              'bg-[#F7FBFD]': isActive,
+              'bg-[#F7FBFD] dark:bg-dark': isActive,
             })
           }
         >
@@ -78,7 +78,7 @@ export const TaskItem = observer(({ id, title, className }: TaskItemProps) => {
               <ArrowSvg
                 width={16}
                 height={16}
-                className={cn('transition-transform', {
+                className={cn('transition-transform dark:fill-white', {
                   'rotate-90': !isExpanded,
                 })}
               />
@@ -92,7 +92,7 @@ export const TaskItem = observer(({ id, title, className }: TaskItemProps) => {
           onChange={handleCheckboxChange}
         />
         <IconButton onClick={handleMenuOpen} className="absolute right-2">
-          <VertMenuSvg width={24} height={24} />
+          <VertMenuSvg className="fill-[#D9D9D9]" width={24} height={24} />
         </IconButton>
         <TaskMenu
           className="absolute right-2 top-full z-20"

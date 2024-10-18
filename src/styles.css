@@ -5,6 +5,16 @@
 @tailwind utilities;
 /* You can add global styles to this file, and also import other style files */
 
+:root {
+  color-scheme: light;
+  @apply bg-white text-dark;
+
+  .dark {
+    color-scheme: dark;
+    @apply bg-[#14191e] text-white;
+  }
+}
+
 body {
   font-family: 'Rubik', sans-serif;
   font-weight: 400;
