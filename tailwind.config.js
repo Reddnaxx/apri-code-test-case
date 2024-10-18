@@ -3,6 +3,7 @@ const { join } = require('path');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'selector',
   content: [
     join(
       __dirname,
@@ -14,6 +15,8 @@ module.exports = {
     extend: {
       colors: {
         primary: '#4788F6',
+        warn: '#F64747',
+        dark: '#11304E',
       },
       keyframes: {
         'expand-menu': {

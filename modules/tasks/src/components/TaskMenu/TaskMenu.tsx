@@ -5,8 +5,12 @@ import {
   Menu,
   MenuButton,
   MenuProps,
+  useModalContext,
 } from '@app/ui';
 import { observer } from 'mobx-react-lite';
+import { EditTaskModal } from '../../modals/EditTaskModal/EditTaskModal';
+import { NewTaskModal } from '../../modals/NewTaskModal/NewTaskModal';
+import { RemoveTaskModal } from '../../modals/RemoveTaskModal/RemoveTaskModal';
 
 type TaskMenuProps = Omit<MenuProps, 'children'> & {
   taskId: string;
@@ -14,22 +18,39 @@ type TaskMenuProps = Omit<MenuProps, 'children'> & {
 
 export const TaskMenu = observer(
   ({ className, setIsMenuOpen, visible, taskId }: TaskMenuProps) => {
+    const { openModal } = useModalContext();
+
+    const handleNewTask = () => {
+      setIsMenuOpen(false);
+      openModal(<NewTaskModal parentId={taskId} />);
+    };
+
+    const handleRemoveTask = () => {
+      setIsMenuOpen(false);
+      openModal(<RemoveTaskModal taskId={taskId} />);
+    };
+
+    const handleEditTask = () => {
+      setIsMenuOpen(false);
+      openModal(<EditTaskModal taskId={taskId} />);
+    };
+
     return (
       <Menu
         setIsMenuOpen={setIsMenuOpen}
         visible={visible}
         className={className}
       >
-        <MenuButton>
-          <EditSvg width={24} height={24} />
+        <MenuButton onClick={handleEditTask}>
+          <EditSvg width={24} height={24} className="dark:fill-white" />
           Редактировать
         </MenuButton>
-        <MenuButton>
-          <AddSvg width={24} height={24} />
+        <MenuButton onClick={handleNewTask}>
+          <AddSvg width={24} height={24} className="dark:stroke-white" />
           Добавить подзадачу
         </MenuButton>
-        <MenuButton>
-          <DeleteSvg width={24} height={24} />
+        <MenuButton onClick={handleRemoveTask}>
+          <DeleteSvg width={24} height={24} className="dark:stroke-white" />
           Удалить
         </MenuButton>
       </Menu>

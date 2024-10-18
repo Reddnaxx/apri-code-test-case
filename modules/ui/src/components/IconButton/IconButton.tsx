@@ -11,7 +11,7 @@ export const IconButton = observer(
         <button
           ref={ref}
           className={cn(
-            'rounded-full transition-colors hover:bg-gray-100 active:bg-blue-50',
+            'rounded-full transition-colors hover:bg-gray-100 active:bg-blue-50 dark:hover:bg-zinc-700 dark:active:bg-zinc-600',
             className
           )}
           {...props}

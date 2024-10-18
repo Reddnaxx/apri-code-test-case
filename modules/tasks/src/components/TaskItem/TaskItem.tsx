@@ -1,10 +1,10 @@
 import { ArrowSvg, Checkbox, IconButton, VertMenuSvg } from '@app/ui';
 import { cn } from '@app/utils';
 import { observer } from 'mobx-react-lite';
-import { ChangeEvent, MouseEvent, useMemo, useState } from 'react';
+import { MouseEvent, useCallback, useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useTaskStore } from '../../contexts/taskStoreContext';
 import { ITask } from '../../interfaces/task.interface';
-import { tasksStore } from '../../store/store';
 import { TaskMenu } from '../TaskMenu/TaskMenu';
 import { TaskItemChildren } from './components/TaskItemChildren/TaskItemChildren';
 
@@ -13,7 +13,7 @@ type TaskItemProps = Pick<ITask, 'id' | 'title'> & {
 };
 
 export const TaskItem = observer(({ id, title, className }: TaskItemProps) => {
-  const store = tasksStore;
+  const store = useTaskStore();
   const children = store.findTaskChildren(id);
   const completed = store.findTaskById(id)?.completed ?? false;
 
@@ -22,36 +22,44 @@ export const TaskItem = observer(({ id, title, className }: TaskItemProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const updateParent = () => {
-    const parent = store.tasks.find(task => task.children?.includes(id));
-    if (!parent?.children) return;
+  const updateParent = useCallback(() => {
+    const updateParentRecursive = (taskId: string) => {
+      const parent = store.tasks.find(task => task.children?.includes(taskId));
+      if (!parent?.children) return;
 
-    const allChildrenCompleted = parent.children.every(
-      childId => store.findTaskById(childId)?.completed
-    );
+      const allChildrenCompleted = parent.children.every(
+        childId => store.findTaskById(childId)?.completed
+      );
 
-    store.updateTask(parent.id, { completed: allChildrenCompleted });
-  };
+      store.updateTask(parent.id, { completed: allChildrenCompleted });
 
-  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
-    store.updateTask(id, { completed: !completed });
+      updateParentRecursive(parent.id);
+    };
 
-    if (children) {
-      for (const child of children) {
-        store.updateTask(child.id, { completed: !completed });
+    updateParentRecursive(id);
+  }, [store, id]);
+
+  const handleCheckboxChange = () => {
+    const updateTaskAndChildren = (taskId: string, isCompleted: boolean) => {
+      store.updateTask(taskId, { completed: isCompleted });
+
+      const childTasks = store.findTaskChildren(taskId);
+      for (const child of childTasks) {
+        updateTaskAndChildren(child.id, isCompleted);
       }
-    }
+    };
 
+    updateTaskAndChildren(id, !completed);
     updateParent();
   };
 
   const handleExpand = (e: MouseEvent<HTMLButtonElement>) => {
-    setIsExpanded(!isExpanded);
+    setIsExpanded(prev => !prev);
     e.preventDefault();
   };
 
   const handleMenuOpen = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setIsMenuOpen(prev => !prev);
   };
 
   return (
@@ -61,7 +69,7 @@ export const TaskItem = observer(({ id, title, className }: TaskItemProps) => {
           to={`${id}`}
           className={({ isActive }) =>
             cn('absolute inset-0 flex items-center', className, {
-              'bg-[#F7FBFD]': isActive,
+              'bg-[#F7FBFD] dark:bg-dark': isActive,
             })
           }
         >
@@ -70,7 +78,7 @@ export const TaskItem = observer(({ id, title, className }: TaskItemProps) => {
               <ArrowSvg
                 width={16}
                 height={16}
-                className={cn('transition-transform', {
+                className={cn('transition-transform dark:fill-white', {
                   'rotate-90': !isExpanded,
                 })}
               />
@@ -79,12 +87,12 @@ export const TaskItem = observer(({ id, title, className }: TaskItemProps) => {
           <p className="pl-9">{title}</p>
         </NavLink>
         <Checkbox
-          className="absolute right-10" // Позиционируем поверх NavLink
+          className="absolute right-10"
           checked={completed}
           onChange={handleCheckboxChange}
         />
         <IconButton onClick={handleMenuOpen} className="absolute right-2">
-          <VertMenuSvg width={24} height={24} />
+          <VertMenuSvg className="fill-[#D9D9D9]" width={24} height={24} />
         </IconButton>
         <TaskMenu
           className="absolute right-2 top-full z-20"

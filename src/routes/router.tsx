@@ -12,7 +12,9 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <div className="text-center text-xl">Выберите задачу</div>,
+        element: (
+          <div className="mt-9 text-center text-xl">Выберите задачу</div>
+        ),
       },
       {
         path: ':id',
@@ -28,7 +30,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '404',
-        element: <div className="text-center text-xl">Задача не найдена</div>,
+        element: <p className="mt-9 text-center text-xl">Задача не найдена</p>,
       },
     ],
   },

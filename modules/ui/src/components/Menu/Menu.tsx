@@ -40,7 +40,7 @@ export const Menu = observer(
       <div
         ref={menuRef}
         className={cn(
-          'bg-[#50c5ff]/20 backdrop-blur-sm rounded-md flex flex-col gap-1 animate-expand-menu relative',
+          'bg-[#50c5ff]/20 backdrop-blur-sm rounded-md flex flex-col gap-1 animate-expand-menu relative dark:bg-zinc-700/20',
           className
         )}
       >
