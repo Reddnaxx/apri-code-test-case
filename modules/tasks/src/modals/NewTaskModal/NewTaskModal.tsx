@@ -1,15 +1,17 @@
-import { Input, useModalContext } from '@app/ui';
+import { Button, Input, useModalContext } from '@app/ui';
 import { observer } from 'mobx-react-lite';
-import { FormEvent } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import { useTaskStore } from '../../contexts/taskStoreContext';
 
 type NewTaskModalProps = {
-  taskId: string;
+  taskId?: string;
 };
 
 export const NewTaskModal = observer(({ taskId }: NewTaskModalProps) => {
   const { addTask } = useTaskStore();
   const { closeModal } = useModalContext();
+  const [isFormValid, setIsFormValid] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,17 +22,31 @@ export const NewTaskModal = observer(({ taskId }: NewTaskModalProps) => {
     closeModal();
   };
 
+  const handleChange = () => {
+    if (formRef.current) {
+      setIsFormValid(formRef.current.checkValidity());
+    }
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+    <form
+      ref={formRef}
+      onSubmit={handleSubmit}
+      onChange={handleChange}
+      className="flex flex-col gap-4"
+    >
       <h2 className="text-2xl font-medium">Создание подзадачи</h2>
-      <Input name="title" placeholder="Название" required />
-      <Input name="text" placeholder="Текст" required />
-      <button
-        type="submit"
-        className="bg-primary hover:bg-primary/90 active:bg-primary/80 rounded-md px-4 py-2 text-white"
-      >
+      <Input
+        name="title"
+        placeholder="Название"
+        className="w-full"
+        autoFocus
+        required
+      />
+      <Input name="text" placeholder="Текст" className="w-full" required />
+      <Button type="submit" disabled={!isFormValid}>
         Создать
-      </button>
+      </Button>
     </form>
   );
 });

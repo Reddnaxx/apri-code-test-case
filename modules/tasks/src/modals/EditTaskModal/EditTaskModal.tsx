@@ -1,6 +1,6 @@
-import { Input, useModalContext } from '@app/ui';
+import { Button, Input, useModalContext } from '@app/ui';
 import { observer } from 'mobx-react-lite';
-import { FormEvent } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import { useTaskStore } from '../../contexts/taskStoreContext';
 
 type EditTaskModalProps = {
@@ -10,7 +10,12 @@ type EditTaskModalProps = {
 export const EditTaskModal = observer(({ taskId }: EditTaskModalProps) => {
   const { updateTask, findTaskById } = useTaskStore();
   const { closeModal } = useModalContext();
+
+  const [isFormValid, setIsFormValid] = useState(false);
+
   const task = findTaskById(taskId);
+  const formRef = useRef<HTMLFormElement>(null);
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
@@ -20,27 +25,38 @@ export const EditTaskModal = observer(({ taskId }: EditTaskModalProps) => {
     closeModal();
   };
 
+  const handleChange = () => {
+    if (formRef.current) {
+      setIsFormValid(formRef.current.checkValidity());
+    }
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+    <form
+      ref={formRef}
+      onSubmit={handleSubmit}
+      onChange={handleChange}
+      className="flex flex-col gap-4"
+    >
       <h2 className="text-2xl font-medium">Редактирование задачи</h2>
       <Input
         name="title"
         placeholder="Название"
         defaultValue={task?.title ?? ''}
+        className="w-full"
+        autoFocus
         required
       />
       <Input
         name="text"
         placeholder="Текст"
         defaultValue={task?.text ?? ''}
+        className="w-full"
         required
       />
-      <button
-        type="submit"
-        className="bg-primary hover:bg-primary/90 active:bg-primary/80 rounded-md px-4 py-2 text-white"
-      >
+      <Button type="submit" disabled={!isFormValid}>
         Сохранить
-      </button>
+      </Button>
     </form>
   );
 });

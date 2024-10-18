@@ -8,15 +8,19 @@ export const Input = observer(
   forwardRef<HTMLInputElement, InputProps>(
     ({ className, placeholder, required, ...props }, ref) => {
       return (
-        <div className="hover:border-primary relative size-fit rounded-md border border-gray-300 p-2 transition-colors">
+        <div
+          className={cn(
+            'hover:border-primary relative size-fit rounded-md border border-gray-300 p-2 transition-colors',
+            className
+          )}
+        >
           <input
             ref={ref}
             placeholder={placeholder}
             required={required}
-            className={cn(
-              'outline-none peer placeholder:opacity-0 focus:translate-y-2 [&:not(:placeholder-shown)]:translate-y-2 transition-transform text-base',
-              className
-            )}
+            className={
+              'peer w-full text-base outline-none transition-transform placeholder:opacity-0 focus:translate-y-2 [&:not(:placeholder-shown)]:translate-y-2'
+            }
             {...props}
           />
           <span className="pointer-events-none absolute left-2 top-1/2 block -translate-y-1/2 select-none text-gray-500 transition-[top,font-size] peer-focus:top-2 peer-focus:text-sm peer-[&:not(:placeholder-shown)]:top-2 peer-[&:not(:placeholder-shown)]:text-sm">

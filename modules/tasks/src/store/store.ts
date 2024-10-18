@@ -65,6 +65,18 @@ export class TasksStore {
     return this._tasks.find(task => task.id === id);
   };
 
+  public searchTasksByContent = (search: string): ITask[] => {
+    const lowerSearch = search.toLowerCase();
+
+    const matchesSearch = (task: ITask) =>
+      task.title.toLowerCase().includes(lowerSearch) ||
+      task.text.toLowerCase().includes(lowerSearch);
+
+    const result = this._tasks.filter(matchesSearch);
+
+    return result;
+  };
+
   public findTaskChildren = (id: string): ITask[] => {
     const task = this.findTaskById(id);
     if (!task) return [];

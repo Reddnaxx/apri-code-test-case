@@ -5,6 +5,7 @@ export { default as CheckSvg } from './assets/svg/check.svg?react';
 export { default as DeleteSvg } from './assets/svg/delete.svg?react';
 export { default as EditSvg } from './assets/svg/edit.svg?react';
 export { default as VertMenuSvg } from './assets/svg/vert-menu.svg?react';
+export * from './components/Button/Button';
 export * from './components/Checkbox/Checkbox';
 export * from './components/IconButton/IconButton';
 export * from './components/Input/Input';

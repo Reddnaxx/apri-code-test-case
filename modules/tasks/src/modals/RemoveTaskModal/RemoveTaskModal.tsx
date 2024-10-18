@@ -1,4 +1,4 @@
-import { useModalContext } from '@app/ui';
+import { Button, useModalContext } from '@app/ui';
 import { observer } from 'mobx-react-lite';
 import { useTaskStore } from '../../contexts/taskStoreContext';
 
@@ -23,18 +23,14 @@ export const RemoveTaskModal = observer(({ taskId }: RemoveTaskModalProps) => {
     <div className="flex flex-col gap-4">
       <h2 className="text-center text-2xl font-normal">Удалить задачу?</h2>
       <div className="flex gap-4">
-        <button
-          className="bg-warn hover:bg-warn/90 active:bg-warn/80 rounded-md px-4 py-2 text-white"
+        <Button
+          autoFocus
+          className="bg-warn hover:bg-warn/90 active:bg-warn/80"
           onClick={handleRemove}
         >
           Удалить
-        </button>
-        <button
-          className="bg-primary hover:bg-primary/90 active:bg-primary/80 rounded-md px-4 py-2 text-white"
-          onClick={handleCancel}
-        >
-          Отменить
-        </button>
+        </Button>
+        <Button onClick={handleCancel}>Отменить</Button>
       </div>
     </div>
   );
