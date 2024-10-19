@@ -22,12 +22,23 @@ export class TasksStore {
     makeAutoObservable(this);
   }
 
-  public addTask = (task: Omit<ITask, 'id'>, parentId?: string): void => {
+  public addTask = (
+    task: Omit<ITask, 'id' | 'completed'>,
+    parentId?: string
+  ): void => {
     const id = createHash({ ...task, id: Date.now().toString() });
 
     const oldTasks = this._tasks;
 
-    this._tasks = [...oldTasks, { ...task, id }];
+    let parent: ITask | undefined;
+    if (parentId) {
+      parent = this._tasks.find(t => t.id === parentId);
+    }
+
+    this._tasks = [
+      ...oldTasks,
+      { ...task, completed: parent?.completed ?? false, id },
+    ];
 
     if (parentId) {
       const parent = this._tasks.find(t => t.id === parentId);

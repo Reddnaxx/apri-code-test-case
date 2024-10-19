@@ -9,7 +9,7 @@ export const Button = observer(
     return (
       <button
         className={cn(
-          'bg-primary hover:bg-primary/90 active:bg-primary/80 rounded-md px-4 py-2 text-white disabled:bg-gray-300 disabled:text-gray-500',
+          'bg-primary hover:bg-primary/90 active:bg-primary/80 rounded-md px-4 py-2 text-white disabled:bg-gray-300 disabled:text-gray-500 transition-colors',
           className
         )}
         {...props}

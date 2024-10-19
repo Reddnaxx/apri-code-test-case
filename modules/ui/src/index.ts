@@ -15,6 +15,7 @@ export * from './components/Input/Input';
 export * from './components/Menu/components/MenuButton/MenuButton';
 export * from './components/Menu/Menu';
 export * from './components/Modal/Modal';
+export * from './components/Textarea/Textarea';
 export * from './components/ToggleThemeButton/ToggleThemeButton';
 export * from './contexts/modalContext';
 export * from './contexts/themeContext';

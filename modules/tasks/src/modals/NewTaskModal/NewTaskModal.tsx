@@ -1,4 +1,4 @@
-import { Button, Input, useModalContext } from '@app/ui';
+import { Button, Input, Textarea, useModalContext } from '@app/ui';
 import { observer } from 'mobx-react-lite';
 import { FormEvent, useRef, useState } from 'react';
 import { useTaskStore } from '../../contexts/taskStoreContext';
@@ -18,7 +18,7 @@ export const NewTaskModal = observer(({ parentId }: NewTaskModalProps) => {
     const formData = new FormData(e.target as HTMLFormElement);
     const title = formData.get('title') as string;
     const text = formData.get('text') as string;
-    addTask({ title, text, completed: false }, parentId);
+    addTask({ title, text }, parentId);
     closeModal();
   };
 
@@ -33,19 +33,27 @@ export const NewTaskModal = observer(({ parentId }: NewTaskModalProps) => {
       ref={formRef}
       onSubmit={handleSubmit}
       onChange={handleChange}
-      className="flex flex-col gap-4"
+      className="flex flex-col gap-5"
     >
       <h2 className="text-2xl font-medium">
         {parentId ? 'Создание подзадачи' : 'Создание задачи'}
       </h2>
-      <Input
-        name="title"
-        placeholder="Название"
-        className="w-full"
-        autoFocus
-        required
-      />
-      <Input name="text" placeholder="Текст" className="w-full" required />
+      <fieldset className="flex flex-col gap-4">
+        <Input
+          name="title"
+          placeholder="Название"
+          className="w-full"
+          autoFocus
+          required
+        />
+        <Textarea
+          name="text"
+          placeholder="Текст"
+          className="w-full"
+          rows={2}
+          required
+        />
+      </fieldset>
       <Button type="submit" disabled={!isFormValid}>
         Создать
       </Button>

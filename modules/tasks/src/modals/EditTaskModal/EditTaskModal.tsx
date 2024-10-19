@@ -1,4 +1,4 @@
-import { Button, Input, useModalContext } from '@app/ui';
+import { Button, Input, Textarea, useModalContext } from '@app/ui';
 import { observer } from 'mobx-react-lite';
 import { FormEvent, useRef, useState } from 'react';
 import { useTaskStore } from '../../contexts/taskStoreContext';
@@ -36,27 +36,38 @@ export const EditTaskModal = observer(({ taskId }: EditTaskModalProps) => {
       ref={formRef}
       onSubmit={handleSubmit}
       onChange={handleChange}
-      className="flex flex-col gap-4"
+      className="flex flex-col gap-5"
     >
       <h2 className="text-2xl font-medium">Редактирование задачи</h2>
-      <Input
-        name="title"
-        placeholder="Название"
-        defaultValue={task?.title ?? ''}
-        className="w-full"
-        autoFocus
-        required
-      />
-      <Input
-        name="text"
-        placeholder="Текст"
-        defaultValue={task?.text ?? ''}
-        className="w-full"
-        required
-      />
-      <Button type="submit" disabled={!isFormValid}>
-        Сохранить
-      </Button>
+      <fieldset className="flex flex-col gap-4">
+        <Input
+          name="title"
+          placeholder="Название"
+          defaultValue={task?.title ?? ''}
+          className="w-full"
+          autoFocus
+          required
+        />
+        <Textarea
+          name="text"
+          placeholder="Текст"
+          defaultValue={task?.text ?? ''}
+          className="w-full"
+          rows={2}
+          required
+        />
+      </fieldset>
+      <fieldset className="flex gap-2">
+        <Button type="submit" className="flex-1" disabled={!isFormValid}>
+          Сохранить
+        </Button>
+        <Button
+          type="reset"
+          className="bg-warn hover:bg-warn/80 active:bg-warn/70 flex-1"
+        >
+          Сбросить
+        </Button>
+      </fieldset>
     </form>
   );
 });
