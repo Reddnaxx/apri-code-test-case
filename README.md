@@ -1,82 +1,50 @@
-# App
+# Тестовое задание для компании "Априкод"
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+[Попробовать на Github Pages](https://reddnaxx.github.io/apri-code-test-case/).
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+## Реализованный функционал
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/react-standalone-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+- Отображение списка задач в виде дерева.
+- При клике на задачу справа отображается ее полный текст.
+- Для любой задачи можно создавать подзадачи (и для любой подзадачи тоже,
+  бесконечная вложенность).
+- Список подзадач должен быть сворачиваемым.
+- Справа от каждой задачи есть чекбокс. При его нажатии должна выделяется сама
+  задача и все ее подзадачи.
+- При выделении всех подзадач также выделяется родительская задача.
+- Возможность удаления задач.
+- Возможность редактирования заголовка/текста задачи.
+- Хранение данных в `localStorage`.
+- Использование библиотеки `MobX` для управления состоянием приложения.
+- Использование библиотеки `React Router` для реализации роутинга.
+- Использование библиотеки `React Portal` для реализации модальных окон.
+- Использование библиотеки `Tailwind CSS` для стилизации.
+- Написание тестов на `MobX Store`.
+- Использование фреймворка `nx standalone` для сборки проекта.
+- Поиск по задачам и подзадачам.
+- Возможность настройки внешнего вида (темная / светлая тема) с помощью кнопки
+  внизу справа.
+- Начальная тема берется из системных настроек и сохраняется в `localStorage`.
+- Реализация правого блока (задача / текст) через «вложенный» роутинг.
+- Публикация приложения на `GitHub Pages` -
+  [ссылка](https://reddnaxx.github.io/apri-code-test-case/).
 
-## Finish your CI setup
+## Запуск проекта
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/d5G6TKaUzI)
+1. Убедитесь, что у вас установлен Node.js.
 
-
-## Run tasks
-
-To run the dev server for your app, use:
-
-```sh
-npx nx serve app
+```bash
+node -v
 ```
 
-To create a production bundle:
+2. Установите зависимости:
 
-```sh
-npx nx build app
+```bash
+yarn
 ```
 
-To see all available targets to run for a project, run:
+2. Запустите проект:
 
-```sh
-npx nx show project app
+```bash
+yarn start
 ```
-
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
-
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
-
-```sh
-npx nx g @nx/react:app demo
-```
-
-To generate a new library, use:
-
-```sh
-npx nx g @nx/react:lib mylib
-```
-
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
-
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/react-standalone-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
